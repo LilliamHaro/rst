@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
+</head>
+
+<body>
+
+    <!-- <div id="data-container">
+
+    </div>
+
+    <button class="button">123456</button> -->
+
+    <!-- <h1></h1>
+
+    <p></p>
+    <div id="info">
+
+    </div> -->
+
+
+    <div id="response">
+        <pre></pre>
+    </div>
+
+    <form id="my-form">
+        <div>
+            <input type="text" id="first" value="123" name="first-name" placeholder="First Name" />
+
+        </div>
+
+        <div style="margin-bottom: 30vh">
+            <input type="text" id="last" value="12" name="last-name" placeholder="Last Name" />
+        </div>
+
+
+        <button id="abc" type="submit">Submit</button>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+
+    <script>
+
+        // $('form').on('submit', function (e) {
+        //     e.preventDefault();
+        //     fetch('http://rest.learncode.academy/api/johnbob/friends', {
+        //         method: "POST",
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //         },
+        //         body: JSON.stringify({
+        //             name: $('#first').val(),
+        //             last: $('#last').val()
+        //         }),
+        //     })
+        //         .then(response => response.json()) // response.json() returns a promise
+        //         .then((response) => {
+        //             console.log("You saved this item", response); //returns the new item along with its ID
+        //         })
+        // })
+
+
+        // $('form').on('submit', function (e) {
+        //     e.preventDefault();
+        //     function getNews() {
+        //         const articleRequest = new XMLHttpRequest();
+        //         articleRequest.open('POST', 'http://rest.learncode.academy/api/johnbob/friends');
+        //         // funciones
+        //         articleRequest.onload = succesY;
+        //         articleRequest.onerror = handleError;
+        //         articleRequest.send();
+        //     }
+        //     function handleError() {
+        //         console.log('se ha presentado un error');
+        //     }
+
+        //     function succesY() {
+        //         const data = JSON.parse(this.responseText);
+        //         const response = data;
+        //         console.log(response)
+
+        //     }
+
+        //     getNews();
+
+        // });
+
+
+        $('form').on('submit', function (event) {
+
+            event.preventDefault();
+            //    var formData = JSON.stringify($("#my-form"));
+            var formData = {
+                name: $('#first').val(),
+                last: $('#last').val()
+            }
+
+            var formData1 = JSON.stringify(formData)
+            console.log(formData1)
+            $.ajax({
+                type: "POST",
+                url: "https://rest.learncode.academy/api/johnbob/friends",
+                data: formData1,
+                dataType: "json",
+                contentType: "application/json",
+                data: $(this).serialize(),
+                success: function (response) {
+                    $('#response').text(response);
+                    console.log(response)
+
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                }
+            });
+        })
+
+
+
+
+
+        // function getNews() {
+        //     const articleRequest = new XMLHttpRequest();
+        //     articleRequest.open('GET', 'https://swapi.co/api/people/');
+        //     // funciones
+        //     articleRequest.onload = addNews;
+        //     articleRequest.onerror = handleError;
+        //     articleRequest.send();
+        // }
+        // function handleError() {
+        //     console.log('se ha presentado un error');
+        // }
+
+        // function addNews() {
+        //     const data = JSON.parse(this.responseText);
+        //     const response = data.results;
+        //     let centinel = 0;
+        //     response.forEach(function (character) {
+        //         let nameCharacter = character.name;
+        //         let div = $('<div>' + nameCharacter + '</div>');
+        //         $('#data-container').append(div);
+        //         centinel++;
+        //     });
+        // }
+        // getNews();
+
+
+
+
+        // var xhr = new XMLHttpRequest();
+        // xhr.open('POST', 'somewhere', true);
+        // xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        // xhr.onload = function () {
+        //     // do something to response
+        //     console.log(this.responseText);
+        // };
+        // xhr.send('user=person&pwd=password&organization=place&requiredkey=key');
+
+
+        // $('button').click(function (event) {
+        //     event.preventDefault();
+
+        //     $.ajax(this.href, {
+        //         success: function (data) {
+        //             $('#main').html($(data).find('#main *'));
+        //             $('#notification-bar').text('The page has been successfully loaded');
+        //         },
+        //         error: function () {
+        //             $('#notification-bar').text('An error occurred');
+        //         }
+        //     });
+        // });
+
+
+
+        // $.ajax({
+        //     url: 'http://api.joind.in/v2.1/talks/10889',
+        //     data: {
+        //         format: 'json'
+        //     },
+        //     error: function () {
+        //         $('#info').html('<p>An error has occurred</p>');
+        //     },
+        //     dataType: 'jsonp',
+        //     success: function (data) {
+        //         var $title = $('<h1>').text(data.talks[0].talk_title);
+        //         var $description = $('<p>').text(data.talks[0].talk_description);
+        //         $('#info')
+        //             .append($title)
+        //             .append($description);
+        //     },
+        //     type: 'GET'
+        // });
+
+
+        // $.ajax({
+        //     url: 'users.php',
+        //     dataType: 'text',
+        //     type: 'post',
+        //     contentType: 'application/x-www-form-urlencoded',
+        //     data: $(this).serialize(),
+        //     success: function (data, textStatus, jQxhr) {
+        //         $('#response pre').html(data);
+        //     },
+        //     error: function (jqXhr, textStatus, errorThrown) {
+        //         console.log(errorThrown);
+        //     }
+        // });
+
+
+
+
+        // function saveUserData(userData)
+        // {
+        // 	$.post('userData.php', {oauth_provider:'facebook',userData: JSON.stringify(userData)}, function(data){ return true; });
+        // }
+
+        // function widthFetch() {
+
+
+        // }
+
+
+
+
+
+        //  var formData = {
+
+        //  }
+
+
+
+    </script>
+
+</body>
+
+</html>
